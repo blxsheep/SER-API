@@ -10,11 +10,14 @@ app = FastAPI()
 def read_root():
     return {"Hello": "World"}
 
-@app.get("/classify") 
-def classify(): 
-    return  { "Emotions" : dp.classify()}
+@app.get("/summary") 
+def summary(): 
+    dp.splitter()
+    res  = dp.classify()
+    dp.upload_res()
+    return   res
 
-# @app.get('/loadModel')
-# def load_model():
-#     return dp.load_model()
+@app.post("/upload_result_to_postgres")
+def upload_to_pq(): 
+    return  dp.upload_res()
 
