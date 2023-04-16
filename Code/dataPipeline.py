@@ -47,11 +47,10 @@ import shutil
 res_dir  = 'Code/classification_res'
 db_url = 'db_url'
 table_name = 'table_name'
-data_path = '/content/drive/MyDrive/migrated_SER/SER- Project/src_as_wav'
+data_path_dir = '/content/drive/MyDrive/migrated_SER/SER- Project/src_as_wav'
 test_df= pd.read_csv('/content/drive/MyDrive/migrated_SER/SER- Project/label_tables/rest_df.csv')
 model_path = 'saved_models/audioutil_x_efficient_b0.ipynb'
-input_dir = 'input_audio'
-hist_input_dir ='history_input'
+hist_data_path_dir ='history_input'
  
 
 
@@ -312,10 +311,10 @@ def classify(data_path_dir) :
     res = emotion_cnt.to_json()
 
     destination_folder = '/path/to/destination/folder'
-    for file in os.listdir(input_dir):
+    for file in os.listdir(data_path_dir):
       #move file to history after classify
   # Full path to the file to be moved
-      file_path = os.path.join(input_dir,file)
+      file_path = os.path.join(data_path_dir,file)
 
     # Move the file to the destination folder
       shutil.move(file_path, destination_folder)
@@ -323,10 +322,10 @@ def classify(data_path_dir) :
 
 
 ### incomplete
-def splitter(input_dir):
+def splitter(data_path_dir = data_path_dir):
   # Define the original file path and filename
-    for filename in os.listdir(input_dir):
-        original_file_path = os.path.join(input_dir,filename)
+    for filename in os.listdir(data_path_dir):
+        original_file_path = os.path.join(data_path_dir,filename)
         filename_base = original_file_path.replace('.wav','')
 
         # Load the audio file
