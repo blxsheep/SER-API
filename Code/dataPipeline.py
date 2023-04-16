@@ -34,7 +34,7 @@ import torch.optim as optim
 import datetime
 from torch.utils.data import DataLoader, Dataset, random_split
 import torchaudio
-
+import shutil
 
 
 
@@ -50,8 +50,9 @@ table_name = 'table_name'
 data_path = '/content/drive/MyDrive/migrated_SER/SER- Project/src_as_wav'
 test_df= pd.read_csv('/content/drive/MyDrive/migrated_SER/SER- Project/label_tables/rest_df.csv')
 model_path = 'saved_models/audioutil_x_efficient_b0.ipynb'
-input_dir = 'Code/input_audio'
-
+input_dir = 'input_audio'
+hist_input_dir ='history_input'
+ 
 
 
 
@@ -309,7 +310,16 @@ def classify(data_path_dir) :
     res_df.to_csv(os.join(res_dir,filename))
     emotion_cnt = res_df['emotion'].value_counts()
     res = emotion_cnt.to_json()
-    return res
+
+    destination_folder = '/path/to/destination/folder'
+    for file in os.listdir(input_dir):
+      #move file to history after classify
+  # Full path to the file to be moved
+      file_path = os.path.join(input_dir,file)
+
+    # Move the file to the destination folder
+      shutil.move(file_path, destination_folder)
+      return res
 
 
 ### incomplete
